@@ -21,4 +21,160 @@
 
 ### 5. Программа
 
+```java
+class Set
+{
+    double[] set;
+
+    public static Scanner in = new Scanner(System.in);
+
+    public double[] setOrig(double[] set) {
+        int cnt = 0;
+        int cnt1 = 0;
+        for (int i = 0; i < set.length; i++) {
+            boolean flag = false;
+            for (int j = 0; j < i; j++) {
+                if (set[i] == set[j]) {
+                    flag = true;
+                }
+            }
+            if (!flag)
+                cnt++;
+        }
+        double[] a = new double[cnt];
+        for (int i = 0; i < set.length; i++) {
+            boolean flag = false;
+            for (int j = 0; j < i; j++) {
+                if (set[i] == set[j]) {
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                a[cnt1++] = set[i];
+            }
+        }
+        return a;
+    }
+
+    public Set() {
+        this.set = setOrig(new double[0]);
+    }
+    public Set(double[] a) {
+        this.set = setOrig(a);
+    }
+    public Set(int n) {
+        double[] a = new double[n];
+        for (int i = 0; i < n; i++) a[i] = in.nextInt();
+        this.set = setOrig(a);
+    }
+    public void add(double element) {
+        double[] a = new double[set.length + 1];
+        for (int i = 0; i < set.length; i++) a[i] = set[i];
+        a[set.length] = element;
+
+        this.set = setOrig(a);
+    }
+    public void delete(double element) {
+        boolean flag = false;
+        int Index = 0;
+        for (int i = 0; i < set.length; i++) {
+            if (set[i] == element) {
+                flag = true;
+                Index = i;
+            }
+        }
+        if (flag) {
+            double[] a = new double[set.length - 1];
+            for (int i = 0; i < Index; i++) {
+                a[i] = set[i];
+            }
+            for (int i = Index; i < a.length; i++) {
+                a[i] = set[i+1];
+            }
+            this.set = a;
+        }
+    }
+    public int countSet() {
+        return set.length;
+    }
+    public boolean elementInSet(double element) {
+        boolean flag = false;
+        for (int i = 0; i < set.length; i++) {
+            if (set[i] == element) flag = true;
+        }
+        return flag;
+    }
+    public static Set combiningSets(Set c1, Set c2) {
+        double[] a = new double[c1.countSet() + c2.countSet()];
+
+        for (int i = 0; i < c1.countSet(); i++) a[i] = c1.set[i];
+        for (int i = 0; i < c2.countSet(); i++) a[i+c1.countSet()] = c2.set[i];
+
+        return new Set(a);
+    }
+    public static Set intersectionSets(Set c1, Set c2) {
+        Set m1;
+        Set m2;
+        if (c1.countSet() <= c2.countSet()) {
+            m1 = c1;
+            m2 = c2;
+        } else {
+            m1 = c2;
+            m2 = c1;
+        }
+        double[] a = new double[m1.countSet()];
+
+        for (int i = 0; i < m1.countSet(); i++) {
+            if (m2.elementInSet(m1.set[i])) a[i] = m1.set[i];
+        }
+        return new Set(a);
+    }
+    public static Set simmetricDifferenceSets(Set c1, Set c2) {
+        double[] a = new double[c1.countSet() + c2.countSet()];
+
+        Set Combining = Set.combiningSets(c1,c2);
+        Set Intersection = Set.intersectionSets(c1,c2);
+
+        for (int i = 0 ; i < Intersection.countSet(); i++) {
+            Combining.delete(Intersection.set[i]);
+        }
+        return Combining;
+    }
+    public void differenceSets(Set A) {
+        for (int i = 0; i < A.countSet(); i++) {
+            if (elementInSet(A.set[i]))
+                delete(A.set[i]);
+        }
+    }
+    public static boolean comparisonSets(Set c1, Set c2) {
+        boolean flag;
+        if (simmetricDifferenceSets(c1,c2).countSet() == 0) {
+            flag = true;
+        } else {
+            flag =false;
+        }
+        return flag;
+    }
+    public boolean nestingSets(Set A) {
+        boolean flag;
+        Set Intersection = intersectionSets(this, A);
+        if (comparisonSets(Intersection, A)) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
+    }
+    @Override
+    public String toString() {
+        String s = "[";
+        if (set.length > 0) {
+            for (int i = 0; i < set.length; i++) {
+                s += String.format("%.2f", set[i]);
+                if (i != set.length - 1) s += ", ";
+            }
+        }
+        return s + "]";
+    }
+}
 
