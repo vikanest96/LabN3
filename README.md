@@ -24,11 +24,11 @@
 ```java
 class Set
 {
-    double[] set;
+    double[] set;   // Поле - массив вещественных чисел;
 
     public static Scanner in = new Scanner(System.in);
 
-    public double[] setOrig(double[] set) {
+    public double[] setOrig(double[] set) {    // Вспомогательный метод setOrig, который возвращает массив уникальных элементов; 
         int cnt = 0;
         int cnt1 = 0;
         for (int i = 0; i < set.length; i++) {
@@ -56,25 +56,25 @@ class Set
         return a;
     }
 
-    public Set() {
+    public Set() {        // Конструктор который создает множество из пустого списка;
         this.set = setOrig(new double[0]);
     }
-    public Set(double[] a) {
+    public Set(double[] a) {     // Конструктор который создает множество из списка вещественных чисел;
         this.set = setOrig(a);
     }
-    public Set(int n) {
+    public Set(int n) {              // Конструктор который создает множество из n вещественных чисел введенных с клавиатуры;
         double[] a = new double[n];
         for (int i = 0; i < n; i++) a[i] = in.nextInt();
         this.set = setOrig(a);
     }
-    public void add(double element) {
+    public void add(double element) {            // Добавление указанного элемента в текущее множество;
         double[] a = new double[set.length + 1];
         for (int i = 0; i < set.length; i++) a[i] = set[i];
         a[set.length] = element;
 
         this.set = setOrig(a);
     }
-    public void delete(double element) {
+    public void delete(double element) {      // Удаление указанного элемента из текущего множество;
         boolean flag = false;
         int Index = 0;
         for (int i = 0; i < set.length; i++) {
@@ -94,17 +94,17 @@ class Set
             this.set = a;
         }
     }
-    public int countSet() {
+    public int countSet() {   // размер множества;
         return set.length;
     }
-    public boolean elementInSet(double element) {
+    public boolean elementInSet(double element) {     // Проверяем есть ли указанный элемент в текущем множестве;
         boolean flag = false;
         for (int i = 0; i < set.length; i++) {
             if (set[i] == element) flag = true;
         }
         return flag;
     }
-    public static Set combiningSets(Set c1, Set c2) {
+    public static Set combiningSets(Set c1, Set c2) {           // Объединение множеств;
         double[] a = new double[c1.countSet() + c2.countSet()];
 
         for (int i = 0; i < c1.countSet(); i++) a[i] = c1.set[i];
@@ -112,7 +112,7 @@ class Set
 
         return new Set(a);
     }
-    public static Set intersectionSets(Set c1, Set c2) {
+    public static Set intersectionSets(Set c1, Set c2) {      // Пересечение множеств;
         Set m1;
         Set m2;
         if (c1.countSet() <= c2.countSet()) {
@@ -129,7 +129,7 @@ class Set
         }
         return new Set(a);
     }
-    public static Set simmetricDifferenceSets(Set c1, Set c2) {
+    public static Set simmetricDifferenceSets(Set c1, Set c2) {      // Симметрическая разность множеств;
         double[] a = new double[c1.countSet() + c2.countSet()];
 
         Set Combining = Set.combiningSets(c1,c2);
@@ -140,13 +140,13 @@ class Set
         }
         return Combining;
     }
-    public void differenceSets(Set A) {
+    public void differenceSets(Set A) {             // Разность множеств;
         for (int i = 0; i < A.countSet(); i++) {
             if (elementInSet(A.set[i]))
                 delete(A.set[i]);
         }
     }
-    public static boolean comparisonSets(Set c1, Set c2) {
+    public static boolean comparisonSets(Set c1, Set c2) {    // Сравнение множеств;
         boolean flag;
         if (simmetricDifferenceSets(c1,c2).countSet() == 0) {
             flag = true;
@@ -155,7 +155,7 @@ class Set
         }
         return flag;
     }
-    public boolean nestingSets(Set A) {
+    public boolean nestingSets(Set A) {       // Вложенность множеств;
         boolean flag;
         Set Intersection = intersectionSets(this, A);
         if (comparisonSets(Intersection, A)) {
