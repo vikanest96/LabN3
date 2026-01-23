@@ -233,4 +233,73 @@ class Set
         return s + "]";
     }
 }
+
+class Test
+{
+    public static Scanner in = new Scanner(System.in);
+    public static PrintStream out = System.out;
+
+    public static void main(String[] args) {
+
+        Set set1 = new Set();
+        out.println(set1);
+
+        double[] a = {1.00, 1.00, 2.50, 5.70, 7.00};
+        Set set2 = new Set(a);
+
+        out.println(set2);
+
+        int n = 4;
+        Set set3 = new Set(n);
+        out.println(set3);
+
+        out.println("Добавление элемента");
+        set1.add(3.25);
+        out.println(set1);
+
+        out.println("Удаление элемента");
+        set1.delete(3.25);
+        out.println(set1);
+
+        out.println("Размер множества");
+        out.println(set1.countSet());
+
+        out.println("Проверка наличия элемента в множестве");
+        out.println(set2.elementInSet(7.00));
+        out.println(set1.elementInSet(7.00));
+
+        out.println("Объединение множеств");
+        out.println(Set.combiningSets(set1, set2));
+        out.println(Set.combiningSets(set2, set3));
+
+        out.println("Пересечение множеств");
+        out.println(Set.intersectionSets(set1, set2));
+        out.println(Set.intersectionSets(set2, set3));
+
+        out.println("Симметрическая разность множеств");
+        out.println(Set.simmetricDifferenceSets(set1, set2));
+        out.println(Set.simmetricDifferenceSets(set2, set3));
+
+        out.println("Разность множеств");
+        set2.differenceSets(set3);
+        out.println(set2);
+
+        double[] b = {1.00, 4.00, 5.00, 6.75};
+        double[] c = {1.00, 4.00, 5.00, 6.75};
+        double[] d = {1.00, 4.00, 5.00, 6.75, 7.00};
+
+        Set set4 = new Set(b);
+        Set set5 = new Set(c);
+        Set set6 = new Set(d);
+
+        out.println("Сравнение множеств");
+        out.println(Set.comparisonSets(set4,set5));
+        out.println(Set.comparisonSets(set4,set6));
+
+        out.println("Вложенность множеств");
+        out.println(set4.nestingSets(set6));
+        out.println(set6.nestingSets(set4));
+
+    }
+}
 ```
