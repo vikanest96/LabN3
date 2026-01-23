@@ -67,7 +67,7 @@ class Set
         for (int i = 0; i < n; i++) a[i] = in.nextInt();
         this.set = setOrig(a);
     }
-    public void add(double element) {            // Добавление указанного элемента в текущее множество;
+    public void add(double element) {        // Добавление указанного элемента в текущее множество;
         double[] a = new double[set.length + 1];
         for (int i = 0; i < set.length; i++) a[i] = set[i];
         a[set.length] = element;
@@ -97,7 +97,7 @@ class Set
     public int countSet() {   // размер множества;
         return set.length;
     }
-    public boolean elementInSet(double element) {     // Проверяем есть ли указанный элемент в текущем множестве;
+    public boolean elementInSet(double element) {   // Проверяем есть ли указанный элемент в текущем множестве;
         boolean flag = false;
         for (int i = 0; i < set.length; i++) {
             if (set[i] == element) flag = true;
